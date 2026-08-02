@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Letterbox
 
-## Getting Started
+A universal letter & time-capsule platform. See `CONTEXT.md` (project root's parent, or wherever you keep it) for the full product spec.
 
-First, run the development server:
+## Stack
+
+Next.js (App Router) + Supabase (Postgres, Auth, Realtime, Edge Functions, pg_cron) + Tailwind CSS. Auth is Google OAuth via Supabase.
+
+## First-time setup
+
+### 1. Create a Supabase project
+
+Go to [supabase.com](https://supabase.com), create a free project, and grab these from **Project Settings → API**:
+
+- Project URL
+- `anon` public key
+- `service_role` key (keep this one secret — never in frontend code)
+
+Copy `.env.local.example` to `.env.local` and fill them in.
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+cp .env.local.example .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 2. Enable Google OAuth
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+In the Supabase dashboard: **Authentication → Providers → Google**.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+You'll need a Google OAuth Client ID/Secret from [Google Cloud Console](https://console.cloud.google.com/apis/credentials):
 
-## Learn More
+- Create an OAuth consent screen (External, testing mode is fine to start)
+- Create an OAuth Client ID (type: Web application)
+- Add this as an **Authorized redirect URI**: the callback URL Supabase shows you on the Google provider settings page (looks like `https://<project-ref>.supabase.co/auth/v1/callback`)
+- Paste the resulting Client ID/Secret into Supabase's Google provider settings and enable it
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Run the database migration
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The schema (users/spaces/letters tables + RLS policies) lives in `supabase/migrations/0001_init.sql`. Run it via the Supabase SQL Editor (paste the file contents and run), or with the Supabase CLI if you have it linked:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+supabase db push
+```
 
-## Deploy on Vercel
+### 4. Run the app
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm install
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Open [http://localhost:3000](http://localhost:3000) — it redirects to `/login`, then Google OAuth → `/username` (first login only) → `/write`.
+
+## What's built so far
+
+- Google OAuth sign-in (`/login`, `/auth/callback`)
+- Username setup on first login (`/username`)
+- Letter-writing page with recipient (self / username), anonymous toggle, and unlock-date picker (`/write`)
+- Full schema + RLS for `users`, `spaces`, `letters`, including an anonymous-safe inbox read path (`get_inbox()`) that strips sender identity server-side
+
+## Not built yet
+
+Sealed inbox UI, the pg_cron/Edge Function unlock job, push notifications, Couples Space pairing + mutual-consent deletion, and everything under "defer to later" in the spec (bouquet maker, memory feed, themes, AI features, native apps, monetization).
