@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { WriteForm } from "./write-form";
+import { LetterList, type InboxLetter } from "./letter-list";
 
-export default async function WritePage() {
+export default async function InboxPage() {
   const supabase = await createClient();
   const {
     data: { user },
@@ -23,21 +23,18 @@ export default async function WritePage() {
     redirect("/username");
   }
 
+  const { data: letters } = await supabase.rpc("get_inbox");
+
   return (
     <main className="flex min-h-screen flex-col items-center px-6 py-16">
       <div className="w-full max-w-lg space-y-8">
         <div className="flex items-center justify-between">
-          <div className="space-y-1">
-            <h1 className="text-2xl font-serif">Write a letter</h1>
-            <p className="text-neutral-500 text-sm">
-              Take your time. It&apos;ll keep until the date you choose.
-            </p>
-          </div>
-          <Link href="/inbox" className="text-sm underline text-neutral-600 whitespace-nowrap">
-            Your inbox
+          <h1 className="text-2xl font-serif">Your inbox</h1>
+          <Link href="/write" className="text-sm underline text-neutral-600">
+            Write a letter
           </Link>
         </div>
-        <WriteForm />
+        <LetterList letters={(letters as InboxLetter[]) ?? []} />
       </div>
     </main>
   );
