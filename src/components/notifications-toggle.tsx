@@ -89,7 +89,7 @@ export function NotificationsToggle() {
     <button
       onClick={status === "subscribed" ? unsubscribe : subscribe}
       disabled={busy}
-      className="text-sm underline text-neutral-600 disabled:opacity-40"
+      className="rounded-full border border-line-strong px-4 py-2 text-[12px] font-[family-name:var(--font-ui)] text-panda-muted hover:border-panda-ghost hover:text-panda-soft transition-all disabled:opacity-40"
     >
       {status === "subscribed" ? "Notifications on" : "Enable notifications"}
     </button>

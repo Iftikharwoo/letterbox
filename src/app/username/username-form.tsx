@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
@@ -9,19 +9,37 @@ const USERNAME_PATTERN = /^[a-z0-9_]{3,20}$/;
 export function UsernameForm() {
   const [username, setUsername] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [available, setAvailable] = useState<boolean | null>(null);
+  const [checking, setChecking] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const router = useRouter();
   const supabase = createClient();
+
+  const normalized = username.trim().toLowerCase();
+  const valid = USERNAME_PATTERN.test(normalized);
+
+  useEffect(() => {
+    if (!valid) {
+      setAvailable(null);
+      return;
+    }
+    setChecking(true);
+    const timeout = setTimeout(async () => {
+      const { data } = await supabase.rpc("resolve_username", {
+        lookup_username: normalized,
+      });
+      setAvailable(!data);
+      setChecking(false);
+    }, 400);
+    return () => clearTimeout(timeout);
+  }, [normalized, valid]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
 
-    const normalized = username.trim().toLowerCase();
-    if (!USERNAME_PATTERN.test(normalized)) {
-      setError(
-        "3-20 characters, lowercase letters, numbers, and underscores only."
-      );
+    if (!valid) {
+      setError("3-20 characters, lowercase letters, numbers, and underscores only.");
       return;
     }
 
@@ -56,21 +74,42 @@ export function UsernameForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col items-center gap-3 w-full max-w-xs">
-      <input
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="username"
-        autoFocus
-        className="w-full rounded-full border border-neutral-300 px-5 py-3 text-center text-sm focus:outline-none focus:border-neutral-500"
-      />
-      {error && <p className="text-sm text-red-600">{error}</p>}
+    <form onSubmit={handleSubmit} className="w-full space-y-5">
+      <div>
+        <div className="flex items-center border-b border-panda-ghost/40 pb-2">
+          <span className="text-[20px] font-[family-name:var(--font-letter)] text-panda-ghost select-none">
+            @
+          </span>
+          <input
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            placeholder="username"
+            autoFocus
+            className="flex-1 bg-transparent text-[20px] font-[family-name:var(--font-letter)] text-panda-white placeholder:text-panda-ghost focus:outline-none focus:shadow-none ml-0.5"
+          />
+        </div>
+        {valid && !checking && available !== null && (
+          <p className={`mt-2 text-[13px] font-[family-name:var(--font-ui)] flex items-center gap-1.5 ${
+            available ? "text-bamboo" : "text-nose"
+          }`}>
+            <span className={`inline-block h-2 w-2 rounded-full ${
+              available ? "bg-bamboo" : "bg-nose"
+            }`} />
+            {available ? "yours if you want it" : "taken — try another"}
+          </p>
+        )}
+        {error && (
+          <p className="mt-2 text-[13px] font-[family-name:var(--font-ui)] text-nose">
+            {error}
+          </p>
+        )}
+      </div>
       <button
         type="submit"
-        disabled={submitting || username.trim().length === 0}
-        className="rounded-full bg-neutral-900 text-white px-6 py-3 text-sm font-medium disabled:opacity-40 hover:bg-neutral-800 transition"
+        disabled={submitting || !valid || available === false}
+        className="rounded-full bg-panda-white hover:bg-panda-cream text-panda-black hover:-translate-y-px transition-all px-6 py-3 text-[13px] font-[family-name:var(--font-ui)] font-semibold tracking-wide disabled:opacity-40"
       >
-        {submitting ? "Saving…" : "Continue"}
+        {submitting ? "Saving…" : "Keep it"}
       </button>
     </form>
   );

@@ -23,14 +23,16 @@ export default async function UsernamePage() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center gap-6 px-6 text-center">
-      <div className="space-y-2">
-        <h1 className="text-2xl font-serif">Choose a username</h1>
-        <p className="text-neutral-500 text-sm">
-          This is how people will address letters to you. Choose carefully —
-          it can&apos;t easily be changed later.
-        </p>
-      </div>
+    <main className="flex min-h-screen flex-col items-start justify-center px-8 max-w-md mx-auto">
+      <p className="text-[10px] uppercase tracking-[.16em] font-[family-name:var(--font-ui)] text-bamboo font-semibold mb-3">
+        One last thing
+      </p>
+      <h1 className="text-[28px] font-serif text-panda-white leading-tight mb-2">
+        What should people call you?
+      </h1>
+      <p className="text-[14px] text-panda-muted font-[family-name:var(--font-ui)] mb-8">
+        This is how letters find you.
+      </p>
       <UsernameForm />
     </main>
   );
