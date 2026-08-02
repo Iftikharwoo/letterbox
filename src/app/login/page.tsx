@@ -17,21 +17,14 @@ export default function LoginPage() {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-center gap-10 px-6 text-center">
-      {/* Panda ears */}
-      <div className="relative">
-        <div className="absolute -top-6 -left-8 w-10 h-10 rounded-full bg-panda-white" />
-        <div className="absolute -top-6 -right-8 w-10 h-10 rounded-full bg-panda-white" />
-        <div className="absolute -top-5 -left-7 w-7 h-7 rounded-full bg-panda-dark" />
-        <div className="absolute -top-5 -right-7 w-7 h-7 rounded-full bg-panda-dark" />
-        <Image
-          src="/assets/wax-seal.png"
-          alt="Letterbox"
-          width={88}
-          height={88}
-          className="relative z-10 drop-shadow-[0_0_30px_rgba(232,160,160,0.3)] rounded-full"
-          priority
-        />
-      </div>
+      <Image
+        src="/assets/wax-seal.png"
+        alt="Letterbox"
+        width={88}
+        height={88}
+        className="drop-shadow-[0_0_30px_rgba(232,160,160,0.3)]"
+        priority
+      />
 
       <div className="space-y-3">
         <h1 className="text-[30px] font-serif italic text-panda-white tracking-tight">
