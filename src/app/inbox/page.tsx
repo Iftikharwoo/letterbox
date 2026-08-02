@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import { LetterList, type InboxLetter } from "./letter-list";
+import { NotificationsToggle } from "@/components/notifications-toggle";
 
 export default async function InboxPage() {
   const supabase = await createClient();
@@ -33,6 +34,9 @@ export default async function InboxPage() {
           <Link href="/write" className="text-sm underline text-neutral-600">
             Write a letter
           </Link>
+        </div>
+        <div className="flex justify-center">
+          <NotificationsToggle />
         </div>
         <LetterList letters={(letters as InboxLetter[]) ?? []} />
       </div>
