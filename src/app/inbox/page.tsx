@@ -38,12 +38,20 @@ export default async function InboxPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-[24px] font-serif text-panda-white">Your letters</h1>
-          <Link
-            href="/write"
-            className="text-[13px] font-[family-name:var(--font-ui)] text-bamboo hover:text-bamboo-light transition-colors"
-          >
-            Write a letter
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/chat"
+              className="text-[13px] font-[family-name:var(--font-ui)] text-panda-ghost hover:text-panda-white transition-colors"
+            >
+              Messages
+            </Link>
+            <Link
+              href="/write"
+              className="text-[13px] font-[family-name:var(--font-ui)] text-bamboo hover:text-bamboo-light transition-colors"
+            >
+              Write a letter
+            </Link>
+          </div>
         </div>
 
         {/* Two-column layout: letters left, people right */}

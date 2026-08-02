@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 
 type Contact = {
@@ -121,26 +122,37 @@ export function PeopleSidebar({ initial }: { initial: Contact[] }) {
                 </p>
               </div>
 
-              {/* Remove button — shows on hover */}
-              <button
-                onClick={() => removeContact(contact.contact_id)}
-                aria-label="Remove"
-                className="opacity-0 group-hover:opacity-100 text-panda-ghost hover:text-nose transition-all shrink-0"
-              >
-                <svg
-                  width="10"
-                  height="10"
-                  viewBox="0 0 10 10"
-                  fill="none"
+              {/* Actions — show on hover */}
+              <div className="opacity-0 group-hover:opacity-100 flex items-center gap-1.5 transition-all shrink-0">
+                <Link
+                  href={`/chat/${contact.username}`}
+                  aria-label="Message"
+                  className="text-panda-ghost hover:text-bamboo transition-colors"
                 >
-                  <path
-                    d="M1 1L9 9M9 1L1 9"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </button>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path
+                      d="M10 1H2C1.45 1 1 1.45 1 2V8C1 8.55 1.45 9 2 9H4L6 11L8 9H10C10.55 9 11 8.55 11 8V2C11 1.45 10.55 1 10 1Z"
+                      stroke="currentColor"
+                      strokeWidth="1.2"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </Link>
+                <button
+                  onClick={() => removeContact(contact.contact_id)}
+                  aria-label="Remove"
+                  className="text-panda-ghost hover:text-nose transition-colors"
+                >
+                  <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                    <path
+                      d="M1 1L9 9M9 1L1 9"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </button>
+              </div>
             </li>
           ))}
         </ul>

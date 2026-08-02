@@ -35,17 +35,25 @@ export default async function WritePage() {
               Take your time. It&apos;ll keep until the date you choose.
             </p>
           </div>
-          <Link
-            href="/inbox"
-            className="text-[13px] font-[family-name:var(--font-ui)] text-bamboo hover:text-bamboo-light whitespace-nowrap flex items-center gap-1.5 transition-colors"
-          >
-            Your letters
-            {!!unreadCount && (
-              <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-panda-white px-1.5 text-[11px] text-panda-black font-bold">
-                {unreadCount}
-              </span>
-            )}
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/chat"
+              className="text-[13px] font-[family-name:var(--font-ui)] text-panda-ghost hover:text-panda-white transition-colors"
+            >
+              Messages
+            </Link>
+            <Link
+              href="/inbox"
+              className="text-[13px] font-[family-name:var(--font-ui)] text-bamboo hover:text-bamboo-light whitespace-nowrap flex items-center gap-1.5 transition-colors"
+            >
+              Your letters
+              {!!unreadCount && (
+                <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-panda-white px-1.5 text-[11px] text-panda-black font-bold">
+                  {unreadCount}
+                </span>
+              )}
+            </Link>
+          </div>
         </div>
         <WriteForm />
       </div>
