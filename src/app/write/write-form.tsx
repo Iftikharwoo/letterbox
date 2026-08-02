@@ -32,6 +32,7 @@ export function WriteForm() {
   const [anonymous, setAnonymous] = useState(false);
   const [content, setContent] = useState("");
   const [unlockDate, setUnlockDate] = useState(addMonths(1));
+  const [openNow, setOpenNow] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
@@ -84,7 +85,7 @@ export function WriteForm() {
       sender_id: user.id,
       recipient_id: recipientId,
       content: content.trim(),
-      unlock_date: unlockDate,
+      unlock_date: openNow ? todayIso() : unlockDate,
       is_anonymous: recipient === "username" ? anonymous : false,
     });
 
@@ -197,17 +198,33 @@ export function WriteForm() {
         <p className="text-[10px] uppercase tracking-[.16em] font-[family-name:var(--font-ui)] text-panda-ghost font-semibold text-center">
           Sealed until
         </p>
-        <div className="flex justify-center">
+        <div className="flex justify-center items-center gap-3 flex-wrap">
+          <button
+            type="button"
+            onClick={() => setOpenNow(true)}
+            className={`rounded-full px-4 py-2.5 text-[13px] font-[family-name:var(--font-ui)] border transition-all ${
+              openNow
+                ? "border-bamboo bg-bamboo/10 text-bamboo"
+                : "border-line-strong text-panda-muted hover:border-panda-ghost"
+            }`}
+          >
+            Open right now
+          </button>
           <input
             type="date"
             min={todayIso()}
             value={unlockDate}
-            onChange={(e) => setUnlockDate(e.target.value)}
-            className="bg-panda-dark border border-line-strong rounded-full px-5 py-2.5 text-[13px] font-[family-name:var(--font-letter)] text-panda-white focus:outline-none [color-scheme:dark]"
+            onClick={() => setOpenNow(false)}
+            onChange={(e) => { setUnlockDate(e.target.value); setOpenNow(false); }}
+            className={`bg-panda-dark border rounded-full px-5 py-2.5 text-[13px] font-[family-name:var(--font-letter)] text-panda-white focus:outline-none [color-scheme:dark] transition-all ${
+              !openNow ? "border-panda-white" : "border-line-strong"
+            }`}
           />
         </div>
         <p className="text-center font-serif italic text-panda-ghost text-[13px]">
-          Opens {formatDateLabel(unlockDate)} · Neither of you can open it sooner.
+          {openNow
+            ? "They'll be able to read it straight away."
+            : `Opens ${formatDateLabel(unlockDate)} · Neither of you can open it sooner.`}
         </p>
       </div>
 
