@@ -30,23 +30,23 @@ export default async function WritePage() {
       <div className="w-full max-w-lg space-y-8">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
-            <h1 className="text-[24px] font-serif text-panda-white">Write a letter</h1>
-            <p className="text-panda-ghost text-[12px] font-[family-name:var(--font-ui)]">
-              Take your time. It&apos;ll keep until the date you choose.
+            <h1 className="text-[20px] font-[family-name:var(--font-letter)] text-panda-white tracking-[.06em]">NEW TRANSMISSION</h1>
+            <p className="text-panda-ghost text-[11px] font-[family-name:var(--font-letter)] tracking-[.04em]">
+              Compose a message. Delivers instantly.
             </p>
           </div>
           <div className="flex items-center gap-4">
             <Link
               href="/chat"
-              className="text-[13px] font-[family-name:var(--font-ui)] text-panda-ghost hover:text-panda-white transition-colors"
+              className="text-[12px] font-[family-name:var(--font-letter)] text-panda-ghost hover:text-panda-white transition-colors tracking-[.04em]"
             >
-              Messages
+              COMMS
             </Link>
             <Link
               href="/inbox"
-              className="text-[13px] font-[family-name:var(--font-ui)] text-bamboo hover:text-bamboo-light whitespace-nowrap flex items-center gap-1.5 transition-colors"
+              className="text-[12px] font-[family-name:var(--font-letter)] text-bamboo hover:text-bamboo-light whitespace-nowrap flex items-center gap-1.5 transition-colors tracking-[.04em]"
             >
-              Your letters
+              INBOX
               {!!unreadCount && (
                 <span className="inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-panda-white px-1.5 text-[11px] text-panda-black font-bold">
                   {unreadCount}

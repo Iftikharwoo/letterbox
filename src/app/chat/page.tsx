@@ -32,20 +32,20 @@ export default async function ChatListPage() {
     <main className="flex min-h-screen flex-col items-center px-6 py-16">
       <div className="w-full max-w-lg space-y-8">
         <div className="flex items-center justify-between">
-          <h1 className="text-[24px] font-serif text-panda-white">Messages</h1>
+          <h1 className="text-[20px] font-[family-name:var(--font-letter)] text-panda-white tracking-[.06em]">COMMS</h1>
           <Link
             href="/write"
-            className="text-[13px] font-[family-name:var(--font-ui)] text-bamboo hover:text-bamboo-light transition-colors"
+            className="text-[12px] font-[family-name:var(--font-letter)] text-bamboo hover:text-bamboo-light transition-colors tracking-[.04em]"
           >
-            Letters
+            TRANSMISSIONS
           </Link>
         </div>
 
         <NewChatInput />
 
         {convos.length === 0 ? (
-          <p className="font-serif italic text-panda-ghost text-[14px] text-center py-8">
-            No messages yet. Start one above.
+          <p className="font-[family-name:var(--font-letter)] text-panda-ghost text-[13px] text-center py-8 tracking-[.04em]">
+            No channels open. Start one above.
           </p>
         ) : (
           <ul className="space-y-2">

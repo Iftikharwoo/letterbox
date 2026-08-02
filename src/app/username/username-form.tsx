@@ -95,7 +95,7 @@ export function UsernameForm() {
             <span className={`inline-block h-2 w-2 rounded-full ${
               available ? "bg-bamboo" : "bg-nose"
             }`} />
-            {available ? "yours if you want it" : "taken — try another"}
+            {available ? "AVAILABLE" : "TAKEN — try another"}
           </p>
         )}
         {error && (
@@ -109,7 +109,7 @@ export function UsernameForm() {
         disabled={submitting || !valid || available === false}
         className="rounded-full bg-panda-white hover:bg-panda-cream text-panda-black hover:-translate-y-px transition-all px-6 py-3 text-[13px] font-[family-name:var(--font-ui)] font-semibold tracking-wide disabled:opacity-40"
       >
-        {submitting ? "Saving…" : "Keep it"}
+        {submitting ? "REGISTERING..." : "LOCK IN"}
       </button>
     </form>
   );

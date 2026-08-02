@@ -57,8 +57,8 @@ export function PeopleSidebar({ initial }: { initial: Contact[] }) {
 
   return (
     <div className="bg-panda-dark border border-line-strong rounded-xl p-4 space-y-4">
-      <p className="text-[10px] uppercase tracking-[.16em] font-[family-name:var(--font-ui)] text-panda-ghost font-semibold">
-        People
+      <p className="text-[10px] uppercase tracking-[.2em] font-[family-name:var(--font-letter)] text-panda-ghost font-semibold">
+        CONTACTS
       </p>
 
       {/* Add form */}
@@ -94,8 +94,8 @@ export function PeopleSidebar({ initial }: { initial: Contact[] }) {
 
       {/* Contact list */}
       {contacts.length === 0 ? (
-        <p className="font-serif italic text-panda-ghost text-[13px]">
-          Add someone to keep track.
+        <p className="font-[family-name:var(--font-letter)] text-panda-ghost text-[12px] tracking-[.04em]">
+          No contacts registered.
         </p>
       ) : (
         <ul className="space-y-3">

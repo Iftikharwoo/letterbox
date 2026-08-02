@@ -37,19 +37,19 @@ export default async function InboxPage() {
       <div className="w-full max-w-2xl">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-[24px] font-serif text-panda-white">Your letters</h1>
+          <h1 className="text-[20px] font-[family-name:var(--font-letter)] text-panda-white tracking-[.06em]">INCOMING</h1>
           <div className="flex items-center gap-4">
             <Link
               href="/chat"
-              className="text-[13px] font-[family-name:var(--font-ui)] text-panda-ghost hover:text-panda-white transition-colors"
+              className="text-[12px] font-[family-name:var(--font-letter)] text-panda-ghost hover:text-panda-white transition-colors tracking-[.04em]"
             >
-              Messages
+              COMMS
             </Link>
             <Link
               href="/write"
-              className="text-[13px] font-[family-name:var(--font-ui)] text-bamboo hover:text-bamboo-light transition-colors"
+              className="text-[12px] font-[family-name:var(--font-letter)] text-bamboo hover:text-bamboo-light transition-colors tracking-[.04em]"
             >
-              Write a letter
+              COMPOSE
             </Link>
           </div>
         </div>

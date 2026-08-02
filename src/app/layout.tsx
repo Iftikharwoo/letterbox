@@ -4,7 +4,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Letterbox",
-  description: "Write a letter. Seal it. Let time deliver it.",
+  description: "Secure transmission system. Messages across time.",
 };
 
 export default function RootLayout({
@@ -18,25 +18,40 @@ export default function RootLayout({
       className={`${garamond.variable} ${courier.variable} ${dmsans.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col relative">
-        {/* Panda fur grain texture */}
+        {/* Space grid */}
         <div
           className="fixed inset-0 pointer-events-none z-0"
           style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E")`,
-            backgroundSize: "256px",
+            backgroundImage: `
+              linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px)
+            `,
+            backgroundSize: "60px 60px",
           }}
         />
-        {/* Subtle panda patch shapes */}
+        {/* Nebula glows */}
         <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
           <div
-            className="absolute -top-32 -right-32 w-80 h-80 rounded-full"
-            style={{ background: "radial-gradient(circle, rgba(240,240,236,0.02) 0%, transparent 70%)" }}
+            className="absolute inset-0"
+            style={{ background: "radial-gradient(ellipse at 15% 15%, rgba(0,212,255,0.06) 0%, transparent 55%)" }}
           />
           <div
-            className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full"
-            style={{ background: "radial-gradient(circle, rgba(240,240,236,0.015) 0%, transparent 70%)" }}
+            className="absolute inset-0"
+            style={{ background: "radial-gradient(ellipse at 85% 85%, rgba(0,255,159,0.04) 0%, transparent 55%)" }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{ background: "radial-gradient(ellipse at 70% 20%, rgba(168,85,247,0.03) 0%, transparent 40%)" }}
           />
         </div>
+        {/* Scanlines */}
+        <div
+          className="fixed inset-0 pointer-events-none z-0"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(0deg, rgba(0,0,0,0.12) 0px, rgba(0,0,0,0.12) 1px, transparent 1px, transparent 4px)",
+          }}
+        />
         <div className="relative z-10 flex-1 flex flex-col">{children}</div>
       </body>
     </html>

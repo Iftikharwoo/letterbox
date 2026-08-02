@@ -18,11 +18,11 @@ export type InboxLetter = {
 };
 
 function senderLabel(letter: InboxLetter) {
-  if (letter.is_self) return "From your past self";
-  if (letter.is_anonymous) return "From someone, anonymously";
+  if (letter.is_self) return "SELF-ARCHIVE";
+  if (letter.is_anonymous) return "UNIDENTIFIED SOURCE";
   return letter.sender_username
-    ? `From @${letter.sender_username}`
-    : "From someone";
+    ? `FROM @${letter.sender_username}`
+    : "UNKNOWN SENDER";
 }
 
 function formatDate(iso: string) {
@@ -97,11 +97,11 @@ export function LetterList({ letters: initialLetters }: { letters: InboxLetter[]
           height={100}
           className="opacity-40 invert"
         />
-        <p className="font-serif italic text-panda-muted text-[16px]">
-          Nothing waiting yet.
+        <p className="font-[family-name:var(--font-letter)] text-panda-muted text-[14px] tracking-[.06em]">
+          NO TRANSMISSIONS.
         </p>
-        <p className="text-[11px] font-[family-name:var(--font-ui)] text-panda-ghost">
-          Write someone a letter.
+        <p className="text-[11px] font-[family-name:var(--font-letter)] text-panda-ghost tracking-[.04em]">
+          Compose one to start.
         </p>
       </div>
     );
@@ -163,8 +163,8 @@ function LetterRow({
             {senderLabel(letter)}
           </p>
           <p className="font-[family-name:var(--font-letter)] text-[11px] text-panda-ghost">
-            Opens {formatDate(letter.unlock_date)} · {days} day
-            {days !== 1 ? "s" : ""} to go
+            UNLOCKS {formatDate(letter.unlock_date)} · {days} day
+            {days !== 1 ? "s" : ""} remaining
           </p>
           {toast && (
             <p className="font-serif italic text-[12px] text-amber mt-1">
@@ -173,7 +173,7 @@ function LetterRow({
           )}
         </div>
         <span className="text-[9px] uppercase tracking-widest font-[family-name:var(--font-ui)] font-bold text-amber whitespace-nowrap">
-          Sealed
+          ENCRYPTED
         </span>
       </li>
     );
@@ -234,14 +234,14 @@ function LetterRow({
             }`}
           >
             {isReady
-              ? "Ready to open"
-              : `Opened ${
+              ? "DECRYPTED"
+              : `OPENED ${
                   letter.opened_at ? formatDate(letter.opened_at.slice(0, 10)) : ""
                 }`}
           </span>
         </div>
-        <p className="font-serif italic text-[13px] text-panda-ghost">
-          Tap to open
+        <p className="font-[family-name:var(--font-letter)] text-[11px] text-panda-ghost tracking-[.06em]">
+          OPEN SIGNAL
         </p>
       </div>
     </li>

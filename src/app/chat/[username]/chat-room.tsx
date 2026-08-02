@@ -108,8 +108,8 @@ export function ChatRoom({
       {/* Messages */}
       <div className="flex-1 overflow-y-auto px-4 py-4 space-y-1.5">
         {messages.length === 0 && (
-          <p className="text-center font-serif italic text-panda-ghost text-[14px] py-12">
-            Say something to @{otherUsername}
+          <p className="text-center font-[family-name:var(--font-letter)] text-panda-ghost text-[13px] py-12 tracking-[.06em]">
+            CHANNEL OPEN · @{otherUsername}
           </p>
         )}
         {messages.map((msg, i) => {
@@ -151,7 +151,7 @@ export function ChatRoom({
           value={input}
           onChange={handleInput}
           onKeyDown={handleKeyDown}
-          placeholder="Message..."
+          placeholder="SEND MESSAGE..."
           rows={1}
           className="flex-1 bg-panda-dark border border-line-strong rounded-2xl px-4 py-3 text-[14px] font-[family-name:var(--font-ui)] text-panda-white placeholder:text-panda-ghost focus:outline-none resize-none leading-relaxed"
           style={{ maxHeight: "120px" }}

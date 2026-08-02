@@ -21,7 +21,7 @@ export function NewChatInput() {
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="username"
+          placeholder="callsign"
           className="flex-1 bg-transparent text-[13px] font-[family-name:var(--font-letter)] text-panda-white placeholder:text-panda-ghost focus:outline-none min-w-0"
         />
       </div>
@@ -30,7 +30,7 @@ export function NewChatInput() {
         disabled={!input.trim()}
         className="rounded-full bg-panda-white text-panda-black px-4 py-2.5 text-[13px] font-[family-name:var(--font-ui)] font-semibold disabled:opacity-40 hover:-translate-y-px transition-all"
       >
-        Open
+        OPEN
       </button>
     </form>
   );

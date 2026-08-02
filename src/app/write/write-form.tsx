@@ -83,12 +83,12 @@ export function WriteForm() {
   if (sent) {
     return (
       <div className="text-center space-y-6 py-16 flex flex-col items-center animate-[fade-up_0.3s_ease-out]">
-        <div className="h-12 w-12 rounded-full bg-bamboo/20 flex items-center justify-center">
+        <div className="h-12 w-12 flex items-center justify-center border border-bamboo/40 bg-bamboo/10" style={{ boxShadow: "0 0 24px rgba(0,255,159,0.15)" }}>
           <svg width="22" height="22" viewBox="0 0 22 22" fill="none">
-            <path d="M4 11.5L9 16.5L18 6" stroke="#5d8a68" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M4 11.5L9 16.5L18 6" stroke="#00ff9f" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </div>
-        <p className="font-serif italic text-panda-white text-[20px]">Sent.</p>
+        <p className="font-[family-name:var(--font-letter)] text-panda-white text-[18px] tracking-[.1em]">TRANSMITTED.</p>
         <button
           onClick={() => {
             setSent(false);
@@ -96,9 +96,9 @@ export function WriteForm() {
             setUsername("");
             setAnonymous(false);
           }}
-          className="text-[13px] font-[family-name:var(--font-ui)] text-bamboo hover:text-bamboo-light transition-colors"
+          className="text-[12px] font-[family-name:var(--font-letter)] text-bamboo hover:text-bamboo-light transition-colors tracking-[.06em]"
         >
-          Write another
+          NEW TRANSMISSION
         </button>
       </div>
     );
@@ -109,40 +109,37 @@ export function WriteForm() {
       {/* Paper card */}
       <div className="bg-panda-dark border border-line-strong rounded-xl overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
         <div
-          className="h-[6px]"
-          style={{
-            background:
-              "repeating-linear-gradient(45deg, #f0f0ec 0 8px, #0e0e0e 8px 16px, #f0f0ec 16px 24px, #0e0e0e 24px 32px)",
-          }}
+          className="h-[1px]"
+          style={{ background: "linear-gradient(90deg, transparent, rgba(0,212,255,0.5) 30%, rgba(0,255,159,0.3) 70%, transparent)" }}
         />
 
         <div className="p-5 space-y-4">
           {/* Recipient row */}
           <div className="flex items-center gap-2 flex-wrap">
-            <span className="text-[10px] uppercase tracking-[.16em] font-[family-name:var(--font-ui)] text-panda-ghost font-semibold">
-              To
+            <span className="text-[10px] uppercase tracking-[.18em] font-[family-name:var(--font-letter)] text-panda-ghost font-semibold">
+              TO
             </span>
             <button
               type="button"
               onClick={() => setRecipient("self")}
-              className={`rounded-full px-3.5 py-1.5 text-[12px] font-[family-name:var(--font-ui)] border transition-all ${
+              className={`px-3.5 py-1.5 text-[11px] font-[family-name:var(--font-letter)] border tracking-[.06em] transition-all ${
                 recipient === "self"
-                  ? "border-panda-white bg-panda-white text-panda-black"
-                  : "border-line-strong text-panda-muted hover:border-panda-ghost"
+                  ? "border-panda-white bg-panda-white/10 text-panda-white shadow-[0_0_12px_rgba(0,212,255,0.2)]"
+                  : "border-line-strong text-panda-muted hover:border-panda-muted"
               }`}
             >
-              My future self
+              SELF-ARCHIVE
             </button>
             <button
               type="button"
               onClick={() => setRecipient("username")}
-              className={`rounded-full px-3.5 py-1.5 text-[12px] font-[family-name:var(--font-ui)] border transition-all ${
+              className={`px-3.5 py-1.5 text-[11px] font-[family-name:var(--font-letter)] border tracking-[.06em] transition-all ${
                 recipient === "username"
-                  ? "border-panda-white bg-panda-white text-panda-black"
-                  : "border-line-strong text-panda-muted hover:border-panda-ghost"
+                  ? "border-panda-white bg-panda-white/10 text-panda-white shadow-[0_0_12px_rgba(0,212,255,0.2)]"
+                  : "border-line-strong text-panda-muted hover:border-panda-muted"
               }`}
             >
-              Someone by username
+              TO RECIPIENT
             </button>
           </div>
 
@@ -151,7 +148,7 @@ export function WriteForm() {
               <input
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="@username"
+                placeholder="@callsign"
                 className="w-full bg-transparent border-b border-panda-ghost/30 pb-2 text-[15px] font-[family-name:var(--font-letter)] text-panda-white placeholder:text-panda-ghost focus:outline-none focus:shadow-none"
               />
               <label className="flex items-center gap-2 text-[12px] font-[family-name:var(--font-ui)] text-panda-muted cursor-pointer">
@@ -161,7 +158,7 @@ export function WriteForm() {
                   onChange={(e) => setAnonymous(e.target.checked)}
                   className="accent-bamboo"
                 />
-                Send anonymously
+                SEND UNIDENTIFIED
               </label>
             </div>
           )}
@@ -170,7 +167,7 @@ export function WriteForm() {
           <textarea
             value={content}
             onChange={(e) => setContent(e.target.value)}
-            placeholder="Dear..."
+            placeholder="BEGIN TRANSMISSION..."
             rows={10}
             className="w-full bg-transparent text-[15px] font-[family-name:var(--font-letter)] text-panda-white leading-[1.9] placeholder:text-panda-ghost focus:outline-none focus:shadow-none resize-none border-none"
           />
@@ -187,9 +184,9 @@ export function WriteForm() {
       <button
         type="submit"
         disabled={submitting}
-        className="w-full rounded-full bg-panda-white hover:bg-panda-cream text-panda-black font-[family-name:var(--font-ui)] font-semibold text-[14px] py-3.5 disabled:opacity-40 hover:-translate-y-px transition-all"
+        className="w-full bg-panda-white/10 border border-panda-white/50 hover:bg-panda-white/20 hover:border-panda-white hover:shadow-[0_0_20px_rgba(0,212,255,0.2)] text-panda-white font-[family-name:var(--font-letter)] font-semibold text-[13px] tracking-[.1em] py-3.5 disabled:opacity-40 hover:-translate-y-px transition-all"
       >
-        {submitting ? "Sending…" : "Send"}
+        {submitting ? "TRANSMITTING..." : "TRANSMIT"}
       </button>
     </form>
   );
